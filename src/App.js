@@ -1,11 +1,14 @@
 import React from 'react';
+import { BrowserRouter } from 'react-router-dom';
+import Routes from './routes';
 
 function App() {
-  return (
-    <div className="App">
-      <h1>Follow the White Rabb1t</h1>
-    </div>
-  );
+	return (
+		<BrowserRouter>
+			{/* <Header/ > */}
+			<Routes />
+		</BrowserRouter>
+	);
 }
 
 export default App;
