@@ -38,14 +38,16 @@ export default function Cart() {
 						</td>
 
 						<td>
-							{/* Botão de adicionar e remover. */}
-							<button type="button">
-								<MdRemoveCircleOutline size={20} color="#7159c1" />
-							</button>
-							<input type="number" value={2} readOnly />
-							<button type="button">
-								<MdAddCircleOutline size={20} color="#7159c1" />
-							</button>
+							<div>
+								{/* Botão de adicionar e remover. */}
+								<button type="button">
+									<MdRemoveCircleOutline size={20} color="#7159c1" />
+								</button>
+								<input type="number" value={2} readOnly />
+								<button type="button">
+									<MdAddCircleOutline size={20} color="#7159c1" />
+								</button>
+							</div>
 						</td>
 
 						<td>
