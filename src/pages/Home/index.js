@@ -1,117 +1,46 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { MdShoppingCart } from 'react-icons/md';
 import { ProductList } from './styles';
+import { formatPrice } from '../../util/format';
+import api from '../../services/api';
 
-export default function Home() {
-	return (
-		<ProductList>
-			<li>
-				<img
-					src="https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcTcgQtXXfJTWsKpIUjVUq_8NbEFDTSaIsNi6tL7ruN5TaWY5hiup9K1sWE34Zwucl9Hrjox3fZ8etCw7UVt30xWH-izSqxwcQ&usqp=CAY"
-					alt="Air Jordan Retro"
-				/>
+export default class Home extends Component {
+	state = {
+		products: [],
+	};
 
-				<strong>Air Jordan Retro</strong>
-				<span>R$ 1249,99</span>
+	async componentDidMount() {
+		const response = await api.get('products');
+		const data = response.data.map((product) => ({
+			...product,
+			priceFormatted: formatPrice(product.price),
+		}));
 
-				<button type="button">
-					<div>
-						<MdShoppingCart size={16} color="#fff" /> 3
-					</div>
+		this.setState({ products: data });
+	}
 
-					<span>Adicionar ao carrinho</span>
-				</button>
-			</li>
+	render() {
+		const { products } = this.state;
 
-			<li>
-				<img
-					src="https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcTcgQtXXfJTWsKpIUjVUq_8NbEFDTSaIsNi6tL7ruN5TaWY5hiup9K1sWE34Zwucl9Hrjox3fZ8etCw7UVt30xWH-izSqxwcQ&usqp=CAY"
-					alt="Air Jordan Retro"
-				/>
+		return (
+			<ProductList>
+				{products.map((product) => (
+					<li key={product.id}>
+						<img src={product.image} alt={product.title} />
 
-				<strong>Air Jordan Retro</strong>
-				<span>R$ 1249,99</span>
+						<strong>{product.title}</strong>
+						<span>{product.priceFormatted}</span>
 
-				<button type="button">
-					<div>
-						<MdShoppingCart size={16} color="#fff" /> 3
-					</div>
+						<button type="button">
+							<div>
+								<MdShoppingCart size={16} color="#fff" /> 3
+							</div>
 
-					<span>Adicionar ao carrinho</span>
-				</button>
-			</li>
-
-			<li>
-				<img
-					src="https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcTcgQtXXfJTWsKpIUjVUq_8NbEFDTSaIsNi6tL7ruN5TaWY5hiup9K1sWE34Zwucl9Hrjox3fZ8etCw7UVt30xWH-izSqxwcQ&usqp=CAY"
-					alt="Air Jordan Retro"
-				/>
-
-				<strong>Air Jordan Retro</strong>
-				<span>R$ 1249,99</span>
-
-				<button type="button">
-					<div>
-						<MdShoppingCart size={16} color="#fff" /> 3
-					</div>
-
-					<span>Adicionar ao carrinho</span>
-				</button>
-			</li>
-
-			<li>
-				<img
-					src="https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcTcgQtXXfJTWsKpIUjVUq_8NbEFDTSaIsNi6tL7ruN5TaWY5hiup9K1sWE34Zwucl9Hrjox3fZ8etCw7UVt30xWH-izSqxwcQ&usqp=CAY"
-					alt="Air Jordan Retro"
-				/>
-
-				<strong>Air Jordan Retro</strong>
-				<span>R$ 1249,99</span>
-
-				<button type="button">
-					<div>
-						<MdShoppingCart size={16} color="#fff" /> 3
-					</div>
-
-					<span>Adicionar ao carrinho</span>
-				</button>
-			</li>
-
-			<li>
-				<img
-					src="https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcTcgQtXXfJTWsKpIUjVUq_8NbEFDTSaIsNi6tL7ruN5TaWY5hiup9K1sWE34Zwucl9Hrjox3fZ8etCw7UVt30xWH-izSqxwcQ&usqp=CAY"
-					alt="Air Jordan Retro"
-				/>
-
-				<strong>Air Jordan Retro</strong>
-				<span>R$ 1249,99</span>
-
-				<button type="button">
-					<div>
-						<MdShoppingCart size={16} color="#fff" /> 3
-					</div>
-
-					<span>Adicionar ao carrinho</span>
-				</button>
-			</li>
-
-			<li>
-				<img
-					src="https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcTcgQtXXfJTWsKpIUjVUq_8NbEFDTSaIsNi6tL7ruN5TaWY5hiup9K1sWE34Zwucl9Hrjox3fZ8etCw7UVt30xWH-izSqxwcQ&usqp=CAY"
-					alt="Air Jordan Retro"
-				/>
-
-				<strong>Air Jordan Retro</strong>
-				<span>R$ 1249,99</span>
-
-				<button type="button">
-					<div>
-						<MdShoppingCart size={16} color="#fff" /> 3
-					</div>
-
-					<span>Adicionar ao carrinho</span>
-				</button>
-			</li>
-		</ProductList>
-	);
+							<span>Adicionar ao carrinho</span>
+						</button>
+					</li>
+				))}
+			</ProductList>
+		);
+	}
 }
