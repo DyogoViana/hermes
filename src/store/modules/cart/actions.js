@@ -13,3 +13,12 @@ export function removeFromCart(id) {
 		id,
 	};
 }
+
+// Adiciona ou subtrai produtos do carrinho.
+export function updateAmount(id, amount) {
+	return {
+		type: '@cart/UPDATE_AMOUNT',
+		id,
+		amount,
+	};
+}
