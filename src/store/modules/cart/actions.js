@@ -1,7 +1,15 @@
-// Adiciona um produto ao carrinho.
-export function addToCart(product) {
+// Adiciona um produto ao carrinho. Ouvindo apenas o Saga.
+export function addToCartRequest(id) {
 	return {
-		type: '@cart/ADD',
+		type: '@cart/ADD_REQUEST',
+		id,
+	};
+}
+
+// Após passar pelo Saga, chama o success no Reduce e add as infos no carrinho.
+export function addToCartSuccess(product) {
+	return {
+		type: '@cart/ADD_SUCCESS',
 		product,
 	};
 }

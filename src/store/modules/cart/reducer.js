@@ -3,7 +3,7 @@ import produce from 'immer';
 export default function cart(baseState = [], action) {
 	switch (action.type) {
 		// Adiciona o produto ao carrinho.
-		case '@cart/ADD':
+		case '@cart/ADD_SUCCESS':
 			return produce(baseState, (draftState) => {
 				const productIndex = draftState.findIndex(
 					(productCart) => productCart.id === action.product.id
