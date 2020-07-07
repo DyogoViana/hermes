@@ -107,14 +107,14 @@ function Cart({ cart, total, removeFromCart, updateAmount }) {
 	);
 }
 
-const mapStateToProps = (state) => ({
-	cart: state.cart.map((product) => ({
+const mapStateToProps = (baseState) => ({
+	cart: baseState.cart.map((product) => ({
 		...product,
 		subtotal: formatPrice(product.price * product.amount),
 	})),
 
 	total: formatPrice(
-		state.cart.reduce((total, product) => {
+		baseState.cart.reduce((total, product) => {
 			return total + product.price * product.amount;
 		}, 0) // Inicia com o valor 'zero' no total das compras.
 	),
