@@ -7,10 +7,11 @@ import {
 	MdDelete,
 } from 'react-icons/md';
 
+import { formatPrice } from '../../util/format';
 import { Container, ProductTable, Total } from './styles';
 import * as CartActions from '../../store/modules/cart/actions';
 
-function Cart({ cart, removeFromCart, updateAmount }) {
+function Cart({ cart, total, removeFromCart, updateAmount }) {
 	// Adiciona produto ao carrinho.
 	function increment(product) {
 		updateAmount(product.id, product.amount + 1);
@@ -76,7 +77,7 @@ function Cart({ cart, removeFromCart, updateAmount }) {
 
 							<td>
 								{/* SUBTOTAL */}
-								<strong>R$2.499,98</strong>
+								<strong>{product.subtotal}</strong>
 							</td>
 
 							<td>
@@ -96,9 +97,10 @@ function Cart({ cart, removeFromCart, updateAmount }) {
 			<footer>
 				<button type="button">Finalizar pedido</button>
 
+				{/* Valor total da compra. */}
 				<Total>
 					<span>TOTAL</span>
-					<strong>R$2000,00</strong>
+					<strong>{total}</strong>
 				</Total>
 			</footer>
 		</Container>
@@ -106,7 +108,16 @@ function Cart({ cart, removeFromCart, updateAmount }) {
 }
 
 const mapStateToProps = (state) => ({
-	cart: state.cart,
+	cart: state.cart.map((product) => ({
+		...product,
+		subtotal: formatPrice(product.price * product.amount),
+	})),
+
+	total: formatPrice(
+		state.cart.reduce((total, product) => {
+			return total + product.price * product.amount;
+		}, 0) // Inicia com o valor 'zero' no total das compras.
+	),
 });
 
 const mapDispatchToProps = (dispatch) =>
