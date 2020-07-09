@@ -9,9 +9,21 @@ function* addToCart({ id }) {
 		state.cart.find((productCart) => productCart.id === id)
 	);
 
-	if (productExists) {
-		const amount = productExists.amount + 1;
+	// Consulta o stock, para verificar se ainda tem produto disponível para venda.
+	const stock = yield call(api.get, `/stock/${id}`);
+	const stockAmount = stock.data.amount;
+	const currentAmount = productExists ? productExists.amount : 0; // Verifica a quantidade que já tem no carrinho.
+	const amount = currentAmount + 1;
 
+	// Verifica se ainda existe o produto no estoque.
+	if (amount > stockAmount) {
+		console.tron.warn(
+			'[ERRO] : Infelizmente não temos mais esse produto em estoque.'
+		);
+		return;
+	}
+
+	if (productExists) {
 		yield put(updateAmount(id, amount));
 	} else {
 		const response = yield call(api.get, `/products/${id}`);
