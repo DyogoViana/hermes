@@ -1,4 +1,5 @@
 import { call, select, put, all, takeLatest } from 'redux-saga/effects'; // Chamar métodos assíncronos e retorna promises.
+import { toast } from 'react-toastify';
 import api from '../../../services/api';
 import { formatPrice } from '../../../util/format';
 import { addToCartSuccess, updateAmount } from './actions';
@@ -17,9 +18,7 @@ function* addToCart({ id }) {
 
 	// Verifica se ainda existe o produto no estoque.
 	if (amount > stockAmount) {
-		console.tron.warn(
-			'[ERRO] : Infelizmente não temos mais esse produto em estoque.'
-		);
+		toast.error('Infelizmente não temos mais esse produto em estoque.');
 		return;
 	}
 
