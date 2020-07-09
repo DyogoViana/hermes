@@ -5,18 +5,9 @@ export default function cart(baseState = [], action) {
 		// Adiciona o produto ao carrinho.
 		case '@cart/ADD_SUCCESS':
 			return produce(baseState, (draftState) => {
-				const productIndex = draftState.findIndex(
-					(productCart) => productCart.id === action.product.id
-				);
+				const { product } = action;
 
-				if (productIndex >= 0) {
-					draftState[productIndex].amount += 1;
-				} else {
-					draftState.push({
-						...action.product,
-						amount: 1,
-					});
-				}
+				draftState.push(product);
 			});
 
 		// Remove o produto do carrinho.
