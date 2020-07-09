@@ -18,7 +18,8 @@ function App() {
 				<Header />
 				<Routes />
 				<GlobalStyle />
-				<ToastContainer autoClose={3000} /> {/* Tempos que ficará em tela. */}
+				<ToastContainer autoClose={3000} />{' '}
+				{/* Tempos que ficará em tela. */}
 			</BrowserRouter>
 		</Provider>
 	);

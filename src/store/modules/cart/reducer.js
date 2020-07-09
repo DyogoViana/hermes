@@ -23,11 +23,7 @@ export default function cart(baseState = [], action) {
 			});
 
 		// Adiciona ou subtrai itens.
-		case '@cart/UPDATE_AMOUNT': {
-			if (action.amount <= 0) {
-				return baseState;
-			}
-
+		case '@cart/UPDATE_AMOUNT_SUCCESS': {
 			return produce(baseState, (draftState) => {
 				const productIndex = draftState.findIndex(
 					(productCart) => productCart.id === action.id
